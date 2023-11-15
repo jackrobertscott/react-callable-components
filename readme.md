@@ -11,57 +11,38 @@ npm install react-callable-components
 ## Usage
 
 ```ts
-import { mdiBriefcase, mdiLogout } from "@mdi/js"
-import {
-  createComponent,
-  createCssComponent,
-  ComponentProps
-} from "react-callable-components"
-import { Fragment } from "./Fragment"
+import { useState } from "react"
+import { createComponent, ComponentProps } from "react-callable-components"
 import { NavOption } from "./NavOption"
+
+export const Div = createComponent("div")
+
+export const Input = createComponent("input")
 
 export const Nav = createComponent<{
   options: ComponentProps<typeof NavOption>[]
 }>(({ options }) => {
-  return NavWrap([
-    Fragment({
-      children: options.map((option) => {
-        return NavOption({
-          ...option,
-        })
-      }),
-    }),
-    NavSpacer(),
-    NavOption({
-      icon: mdiBriefcase,
-    }),
-    NavOption({
-      icon: mdiLogout,
-    }),
-  ])
-})
-
-const NavWrap = createCssComponent("div", () => {
-  return {
-    gap: 10,
-    width: 500,
-    flexGrow: 1,
-    borderRadius: 10,
-    overflow: "hidden",
-    border: "1px solid hsl(0, 0%, 50%)",
-    backgroundColor: "hsl(0, 0%, 80%)",
-  }
-})
-
-const NavSpacer = createCssComponent("div", () => {
-  return {
-    flexGrow: 1,
-    backgroundColor: "hsl(0, 0%, 80%)",
-  }
+  const [text, setText] = useState("")
+  return Div({
+    children: [
+      Input({
+        value: text,
+        onChange: setText,
+      })
+    ]
+  })
 })
 ```
 
 ## API
+
+### `createComponent<P>(tag: FC<P>)`
+
+Creates a React component with specified props.
+
+- `P`: The props type.
+- `tag`: The React functional component or the HTML tag.
+- Returns: A function that takes optional props and returns a React element.
 
 ### `ComponentProps<T>`
 
@@ -84,27 +65,6 @@ Creates a React element with the provided tag, properties, and children. Handles
 A type that can be either the props of a component or its children.
 
 - `T`: The component type.
-
-### `CssPropValue`
-
-Represents a value for the CSS property, which can be a function returning `CSSInterpolation` or a direct `CSSInterpolation`.
-
-### `createCssComponent<T>(tag: T, cssValue: CssPropValue = {})`
-
-Creates a CSS-enhanced React component based on a given tag and CSS properties.
-
-- `T`: The type of the tag (string representing an HTML tag).
-- `tag`: The HTML tag to be used for the component.
-- `cssValue`: The CSS properties or a function returning CSS properties.
-- Returns: A React component with the given tag and styles.
-
-### `createComponent<P>(tag: FC<P>)`
-
-Creates a React component with specified props.
-
-- `P`: The props type.
-- `tag`: The React functional component.
-- Returns: A function that takes optional props and returns a React element.
 
 ## Contributing
 

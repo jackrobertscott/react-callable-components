@@ -13,7 +13,7 @@ import React, {
  * Represents CSS properties for a React component, with custom handling for `class` and `className` properties.
  * @template T The type of the properties.
  */
-type CssProps<T extends {}> = Omit<T, "class" | "className"> & {
+export type CssProps<T extends {}> = Omit<T, "class" | "className"> & {
   class?: string | (string | undefined | null)[]
   className?: string | (string | undefined | null)[]
   ref?: LegacyRef<any>
