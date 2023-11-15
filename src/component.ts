@@ -1,5 +1,5 @@
 import { CSSInterpolation, css } from "@emotion/css"
-import { FC, ReactNode } from "react"
+import { FC, ReactNode, isValidElement } from "react"
 import { ComponentProps, createElement } from "./element"
 
 /**
@@ -61,7 +61,10 @@ export function createComponent<P extends {}>(tag: FC<P>) {
  * @returns An object with children props.
  */
 function convertChildrenProps(props: any): any {
-  return typeof props === "object" && props !== null && !Array.isArray(props)
+  return typeof props === "object" &&
+    props !== null &&
+    !Array.isArray(props) &&
+    !isValidElement(props)
     ? props
     : { children: props }
 }
