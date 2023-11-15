@@ -1,5 +1,5 @@
 import { FC, ReactElement, ReactNode, isValidElement } from "react"
-import { ComponentProps, createElement } from "./element"
+import { ComponentProps, PropsClassName, createElement } from "./element"
 
 /**
  * Defines a type that can be either the props of a component or its children.
@@ -19,11 +19,24 @@ export type ComponentCb<T> = (props?: PropsOrChildrenType<T>) => ReactElement
  * @param tag The React functional component.
  * @returns A function that takes optional props and returns a React element.
  */
-export function createComponent<T extends string>(tag: T): ComponentCb<T>
+export function createComponent<T extends string>(
+  tag: T,
+  className?: PropsClassName
+): ComponentCb<T>
 export function createComponent<P extends {}>(tag: FC<P>): ComponentCb<FC<P>>
-export function createComponent(tag: any): ComponentCb<any> {
+export function createComponent(
+  tag: any,
+  className?: PropsClassName
+): ComponentCb<any> {
   return function (props) {
-    return createElement(tag, convertChildrenProps(props))
+    const _props = convertChildrenProps(props)
+    const cn1 = className
+    const cn2 = _props.className
+    _props.className = [
+      ...(Array.isArray(cn1) ? cn1 : [cn1]),
+      ...(Array.isArray(cn2) ? cn2 : [cn2]),
+    ].filter(Boolean)
+    return createElement(tag, _props)
   }
 }
 
