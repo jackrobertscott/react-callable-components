@@ -1,1 +1,2 @@
-console.log("Hello, World!")
+export * from "./component"
+export * from "./element"
