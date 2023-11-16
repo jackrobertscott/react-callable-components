@@ -2,7 +2,7 @@
   "name": "react-callable-components",
   "description": "Create callable React components with emotion styling.",
   "author": "Jack Scott",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
