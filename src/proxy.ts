@@ -23,19 +23,3 @@ export const svg = new Proxy(
     },
   }
 )
-
-/**
- * Provides a object which exposes properties for creating both html and svg elements.
- */
-export const xml = new Proxy(
-  {} as {
-    [K in
-      | keyof HTMLElementTagNameMap
-      | keyof SVGElementTagNameMap]: ComponentCb<K>
-  },
-  {
-    get(_, prop: string) {
-      return createComponent(prop)
-    },
-  }
-)
