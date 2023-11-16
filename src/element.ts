@@ -21,10 +21,6 @@ export type CssProps<T extends {}> = Omit<T, "class" | "className"> & {
   ref?: LegacyRef<any>
 }
 
-export type ElementTags =
-  | keyof HTMLElementTagNameMap
-  | keyof SVGElementTagNameMap
-
 /**
  * Represents the properties for a React component, with additional handling for HTML and SVG elements, functional components, and class components.
  * @template T The type of the component or element.
