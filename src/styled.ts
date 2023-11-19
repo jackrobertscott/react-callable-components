@@ -5,7 +5,7 @@ import { createElement } from "./element"
 export type StyledProxy = {
   [K in keyof HTMLElementTagNameMap]: (
     ...cssList: CSSInterpolation[]
-  ) => ComponentCb<K> & { className: string }
+  ) => ComponentCb<K> & { className: string; dotClassName: string }
 }
 
 export const styled = new Proxy<StyledProxy>({} as any, {
@@ -19,6 +19,7 @@ export const styled = new Proxy<StyledProxy>({} as any, {
         return createElement(property, props)
       }
       component.className = elementClass
+      component.dotClassName = "." + elementClass
       return component
     }
     return cb
