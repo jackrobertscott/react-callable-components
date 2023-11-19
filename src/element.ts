@@ -19,7 +19,7 @@ export type CssProps<T extends {}> = Omit<
   T,
   "data" | "class" | "className" | "ref"
 > & {
-  data?: Record<string, any>
+  data?: Record<string, undefined | null | boolean | string | number>
   class?: PropsClassName
   className?: PropsClassName
   ref?: LegacyRef<any>
@@ -67,7 +67,9 @@ export function createElement<
       delete props.class
       if (props.data) {
         for (const dataKey in props.data) {
-          props[`data-${toKebabCase(dataKey)}`] = String(props.data[dataKey])
+          const dataValue = props.data[dataKey]
+          if (dataValue || typeof dataValue === "number")
+            props[`data-${toKebabCase(dataKey)}`] = String(props.data[dataKey])
         }
         delete props.data
       }

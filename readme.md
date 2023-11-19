@@ -17,20 +17,25 @@ import {
   ComponentProps,
   html,
   svg,
+  styled,
 } from "react-callable-components"
 import { NavOption } from "./NavOption"
+
+export const NavWrap = styled.div({
+  backgroundColor: "green",
+})
 
 export const Nav = createComponent<{
   options: ComponentProps<typeof NavOption>[]
 }>(({ options }) => {
   const [text, setText] = useState("")
-  return Div({
+  return NavWrap({
     children: [
       html.input({
         value: text,
         onChange: setText,
         data: {
-          hasContent: text.length ? true : false, // data-has-content="false"
+          noContent: text.length ? false : true, // data-no-content="true"
         }
       })
     ]
