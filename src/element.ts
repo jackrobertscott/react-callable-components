@@ -66,7 +66,7 @@ export function createElement<
         .join(" ")
       delete props.class
       if (props.data) {
-        for (const dataKey of props.data) {
+        for (const dataKey in props.data) {
           props[`data-${toKebabCase(dataKey)}`] = String(props.data[dataKey])
         }
         delete props.data
