@@ -12,12 +12,13 @@ npm install react-callable-components
 
 ```ts
 import { useState } from "react"
-import { createComponent, ComponentProps } from "react-callable-components"
+import { 
+  createComponent,
+  ComponentProps,
+  html,
+  svg,
+} from "react-callable-components"
 import { NavOption } from "./NavOption"
-
-export const Div = createComponent("div")
-
-export const Input = createComponent("input")
 
 export const Nav = createComponent<{
   options: ComponentProps<typeof NavOption>[]
@@ -25,9 +26,12 @@ export const Nav = createComponent<{
   const [text, setText] = useState("")
   return Div({
     children: [
-      Input({
+      html.input({
         value: text,
         onChange: setText,
+        data: {
+          hasContent: text.length ? true : false, // data-has-content="false"
+        }
       })
     ]
   })

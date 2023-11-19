@@ -16,6 +16,7 @@ export type PropsClassName = string | (string | undefined | null)[]
  * @template T The type of the properties.
  */
 export type CssProps<T extends {}> = Omit<T, "class" | "className"> & {
+  data?: Record<string, any>
   class?: PropsClassName
   className?: PropsClassName
   ref?: LegacyRef<any>
@@ -61,8 +62,21 @@ export function createElement<
         .filter(Boolean)
         .join(" ")
       delete props.class
+      if (props.data) {
+        for (const dataKey of props.data) {
+          props[`data-${toKebabCase(dataKey)}`] = String(props.data[dataKey])
+        }
+      }
     }
   }
   children = children.concat(props?.children)
   return React.createElement(tag, props, ...children)
+}
+
+function toKebabCase(value: string): string {
+  return value
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/([A-Z])/g, "-$1") // Replace uppercase letters with hyphen and lowercase
+    .toLowerCase() // Convert to lowercase
+    .replace(/^-+|-+$/g, "") // Remove any leading or trailing hyphens
 }
