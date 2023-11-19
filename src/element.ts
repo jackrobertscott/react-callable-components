@@ -15,7 +15,10 @@ export type PropsClassName = string | (string | undefined | null)[]
  * Represents CSS properties for a React component, with custom handling for `class` and `className` properties.
  * @template T The type of the properties.
  */
-export type CssProps<T extends {}> = Omit<T, "class" | "className"> & {
+export type CssProps<T extends {}> = Omit<
+  T,
+  "data" | "class" | "className" | "ref"
+> & {
   data?: Record<string, any>
   class?: PropsClassName
   className?: PropsClassName
