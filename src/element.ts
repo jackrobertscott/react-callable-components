@@ -69,6 +69,7 @@ export function createElement<
         for (const dataKey of props.data) {
           props[`data-${toKebabCase(dataKey)}`] = String(props.data[dataKey])
         }
+        delete props.data
       }
     }
   }
