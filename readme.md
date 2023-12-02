@@ -1,6 +1,6 @@
 # react-callable-components
 
-> Create callable React components with emotion styling.
+> Create callable React components.
 
 ## Install
 
@@ -21,15 +21,11 @@ import {
 } from "react-callable-components"
 import { NavOption } from "./NavOption"
 
-export const NavWrap = styled.div({
-  backgroundColor: "green",
-})
-
 export const Nav = createComponent<{
   options: ComponentProps<typeof NavOption>[]
 }>(({ options }) => {
   const [text, setText] = useState("")
-  return NavWrap({
+  return html.div({
     children: [
       html.input({
         value: text,
