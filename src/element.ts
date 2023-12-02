@@ -57,14 +57,19 @@ export function createElement<
 ): ReactElement<ComponentProps<T>> {
   if (props) {
     if (typeof tag === "string") {
-      props.className = []
-        .concat(props.className ?? [])
-        .concat(props.class ?? [])
+      let classList: string[] = []
+      if (props.className) {
+        classList = classList.concat(props.className)
+      }
+      if (props.class) {
+        classList = classList.concat(props.class)
+        delete props.class
+      }
+      props.className = classList
         .join(" ")
         .split(" ")
-        .filter(Boolean)
+        .filter((i) => i)
         .join(" ")
-      delete props.class
       if (props.data) {
         for (const dataKey in props.data) {
           const dataValue = props.data[dataKey]
