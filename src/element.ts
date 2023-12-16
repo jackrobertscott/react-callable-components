@@ -39,7 +39,7 @@ export type ComponentProps<T> = T extends keyof HTMLElementTagNameMap
   : T extends ComponentClass<infer P>
   ? P & Attributes
   : T extends RemappedComponent<infer A>
-  ? ComponentProps<A>
+  ? Exclude<ComponentProps<A>, ReactNode>
   : {}
 
 /**

@@ -2,7 +2,7 @@
   "name": "react-callable-components",
   "description": "Create callable React components.",
   "author": "Jack Scott",
-  "version": "0.7.7",
+  "version": "0.7.8",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
