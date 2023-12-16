@@ -8,7 +8,7 @@ import React, {
   ReactNode,
   SVGProps,
 } from "react"
-import { ComponentCb } from "./component"
+import { RemappedComponent } from "./component"
 
 export type PropsClassName = string | (string | undefined | null)[]
 
@@ -38,8 +38,8 @@ export type ComponentProps<T> = T extends keyof HTMLElementTagNameMap
   ? P & Attributes
   : T extends ComponentClass<infer P>
   ? P & Attributes
-  : T extends ComponentCb<infer P>
-  ? P & Attributes
+  : T extends RemappedComponent<infer A>
+  ? ComponentProps<A>
   : {}
 
 /**
