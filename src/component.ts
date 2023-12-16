@@ -20,7 +20,7 @@ export type ComponentCb<T> = (props?: PropsOrChildrenType<T>) => ReactElement
  * @returns A function that takes optional props and returns a React element.
  */
 export function createComponent<T extends string>(tag: T): ComponentCb<T>
-export function createComponent<P extends {}>(tag: FC<P>): ComponentCb<FC<P>>
+export function createComponent<P extends {}>(tag: FC<P>): ComponentCb<P>
 export function createComponent(tag: any): ComponentCb<any> {
   return function (props) {
     const _props = convertChildrenProps(props)
