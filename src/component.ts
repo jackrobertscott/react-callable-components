@@ -1,5 +1,9 @@
-import { FC, ReactNode, isValidElement } from "react"
-import { createElement } from "./element"
+import { FC, ReactElement, ReactNode, isValidElement } from "react"
+import { ComponentProps, createElement } from "./element"
+
+export type FCBetter<T> = (
+  props?: ComponentProps<T> | ReactNode
+) => ReactElement
 
 /**
  * Creates a React component with specified props.
@@ -7,9 +11,9 @@ import { createElement } from "./element"
  * @param tag The React functional component.
  * @returns A function that takes optional props and returns a React element.
  */
-export function createComponent<T extends string>(tag: T): FC<T>
-export function createComponent<P extends {}>(tag: FC<P>): FC<P | ReactNode>
-export function createComponent(tag: any): FC<any> {
+export function createComponent<T extends string>(tag: T): FCBetter<T>
+export function createComponent<P extends {}>(tag: FC<P>): FCBetter<P>
+export function createComponent(tag: any): FCBetter<any> {
   return function (props) {
     const _props = convertChildrenProps(props)
     return createElement(tag, _props)
